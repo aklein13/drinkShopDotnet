@@ -4,7 +4,7 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h2>Drink details</h2>
 
 <div>
     <h4>Drink</h4>
@@ -31,6 +31,7 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    @{if (User.IsInRole("Admin") || User.IsInRole("Mod"))
+        {<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>} }
     <a asp-action="Index">Back to List</a>
 </div>

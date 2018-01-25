@@ -54,7 +54,7 @@ namespace dotnetDrinks.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Country,CreationDate")] Company company)
+        public async Task<IActionResult> Create([Bind("Id,Name,Country,ZipCode,CreationDate")] Company company)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace dotnetDrinks.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Country,CreationDate")] Company company)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Country,ZipCode,CreationDate")] Company company)
         {
             if (id != company.Id)
             {
