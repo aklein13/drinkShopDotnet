@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Drinks.Models;
 using dotnetDrinks.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace dotnetDrinks.Controllers
 {
@@ -44,6 +45,7 @@ namespace dotnetDrinks.Controllers
         }
 
         // GET: Drinks/Create
+        [Authorize(Roles = "Admin, Mod")]
         public IActionResult Create()
         {
             return View();
@@ -54,6 +56,7 @@ namespace dotnetDrinks.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Mod")]
         public async Task<IActionResult> Create([Bind("Id,Name,Amount,Price,CompanyID")] Drink drink)
         {
             if (ModelState.IsValid)
@@ -66,6 +69,7 @@ namespace dotnetDrinks.Controllers
         }
 
         // GET: Drinks/Edit/5
+        [Authorize(Roles = "Admin, Mod")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,6 +90,7 @@ namespace dotnetDrinks.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Mod")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Amount,Price,CompanyID")] Drink drink)
         {
             if (id != drink.Id)
@@ -117,6 +122,7 @@ namespace dotnetDrinks.Controllers
         }
 
         // GET: Drinks/Delete/5
+        [Authorize(Roles = "Admin, Mod")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,6 +143,7 @@ namespace dotnetDrinks.Controllers
         // POST: Drinks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Mod")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var drink = await _context.Drink.SingleOrDefaultAsync(m => m.Id == id);

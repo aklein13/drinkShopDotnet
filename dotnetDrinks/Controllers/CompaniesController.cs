@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using dotnetDrinks.Data;
 using dotnetDrinks.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace dotnetDrinks.Controllers
 {
@@ -44,6 +45,7 @@ namespace dotnetDrinks.Controllers
         }
 
         // GET: Companies/Create
+        [Authorize(Roles = "Admin, Mod")]
         public IActionResult Create()
         {
             return View();
@@ -53,6 +55,7 @@ namespace dotnetDrinks.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Country,ZipCode,CreationDate")] Company company)
         {
@@ -66,6 +69,7 @@ namespace dotnetDrinks.Controllers
         }
 
         // GET: Companies/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,6 +90,7 @@ namespace dotnetDrinks.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Country,ZipCode,CreationDate")] Company company)
         {
             if (id != company.Id)
@@ -117,6 +122,7 @@ namespace dotnetDrinks.Controllers
         }
 
         // GET: Companies/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -136,6 +142,7 @@ namespace dotnetDrinks.Controllers
 
         // POST: Companies/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
