@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using dotnetDrinks.Models;
+using Drinks.Models;
 
 namespace dotnetDrinks.Data
 {
@@ -22,5 +23,7 @@ namespace dotnetDrinks.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
+
+        public DbSet<Drinks.Models.Drink> Drink { get; set; }
     }
 }
