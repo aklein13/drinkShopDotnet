@@ -18,9 +18,10 @@ namespace Drinks.Models
         public string Name { get; set; }
         [Required]
         public int Amount { get; set; }
-        [DataType(DataType.Currency)]
+        [Range(0, 1000.00, ErrorMessage = "Price can't be negative or higher then 1000")]
         [Required]
         public decimal Price { get; set; }
+        [Display(Name = "Company")]
         public int? CompanyID { get; set; }
         public virtual Company Company { get; set; }
     }
