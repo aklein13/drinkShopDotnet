@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using dotnetDrinks.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -20,5 +21,7 @@ namespace Drinks.Models
         [DataType(DataType.Currency)]
         [Required]
         public decimal Price { get; set; }
+        public int? CompanyID { get; set; }
+        public virtual Company Company { get; set; }
     }
 }

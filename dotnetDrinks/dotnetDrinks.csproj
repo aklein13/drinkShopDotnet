@@ -5,6 +5,15 @@
     <UserSecretsId>aspnet-dotnetDrinks-5101F889-4104-4466-8EAF-94A83588BEBA</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20180125203308_Companies.cs" />
+    <Compile Remove="Data\Migrations\20180125203308_Companies.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180125203854_Companies.cs" />
+    <Compile Remove="Data\Migrations\20180125203854_Companies.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180125205044_CompaniesFK.cs" />
+    <Compile Remove="Data\Migrations\20180125205044_CompaniesFK.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />

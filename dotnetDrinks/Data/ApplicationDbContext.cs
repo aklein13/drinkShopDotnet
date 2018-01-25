@@ -25,5 +25,7 @@ namespace dotnetDrinks.Data
         }
 
         public DbSet<Drinks.Models.Drink> Drink { get; set; }
+
+        public DbSet<dotnetDrinks.Models.Company> Company { get; set; }
     }
 }

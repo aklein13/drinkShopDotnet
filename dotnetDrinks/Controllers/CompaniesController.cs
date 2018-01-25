@@ -5,27 +5,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Drinks.Models;
 using dotnetDrinks.Data;
+using dotnetDrinks.Models;
 
 namespace dotnetDrinks.Controllers
 {
-    public class DrinksController : Controller
+    public class CompaniesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public DrinksController(ApplicationDbContext context)
+        public CompaniesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Drinks
+        // GET: Companies
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Drink.ToListAsync());
+            return View(await _context.Company.ToListAsync());
         }
 
-        // GET: Drinks/Details/5
+        // GET: Companies/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace dotnetDrinks.Controllers
                 return NotFound();
             }
 
-            var drink = await _context.Drink
+            var company = await _context.Company
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (drink == null)
+            if (company == null)
             {
                 return NotFound();
             }
 
-            return View(drink);
+            return View(company);
         }
 
-        // GET: Drinks/Create
+        // GET: Companies/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Drinks/Create
+        // POST: Companies/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Amount,Price,CompanyID")] Drink drink)
+        public async Task<IActionResult> Create([Bind("Id,Name,Country,CreationDate")] Company company)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(drink);
+                _context.Add(company);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(drink);
+            return View(company);
         }
 
-        // GET: Drinks/Edit/5
+        // GET: Companies/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace dotnetDrinks.Controllers
                 return NotFound();
             }
 
-            var drink = await _context.Drink.SingleOrDefaultAsync(m => m.Id == id);
-            if (drink == null)
+            var company = await _context.Company.SingleOrDefaultAsync(m => m.Id == id);
+            if (company == null)
             {
                 return NotFound();
             }
-            return View(drink);
+            return View(company);
         }
 
-        // POST: Drinks/Edit/5
+        // POST: Companies/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Amount,Price,CompanyID")] Drink drink)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Country,CreationDate")] Company company)
         {
-            if (id != drink.Id)
+            if (id != company.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace dotnetDrinks.Controllers
             {
                 try
                 {
-                    _context.Update(drink);
+                    _context.Update(company);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DrinkExists(drink.Id))
+                    if (!CompanyExists(company.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace dotnetDrinks.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(drink);
+            return View(company);
         }
 
-        // GET: Drinks/Delete/5
+        // GET: Companies/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace dotnetDrinks.Controllers
                 return NotFound();
             }
 
-            var drink = await _context.Drink
+            var company = await _context.Company
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (drink == null)
+            if (company == null)
             {
                 return NotFound();
             }
 
-            return View(drink);
+            return View(company);
         }
 
-        // POST: Drinks/Delete/5
+        // POST: Companies/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var drink = await _context.Drink.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Drink.Remove(drink);
+            var company = await _context.Company.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Company.Remove(company);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DrinkExists(int id)
+        private bool CompanyExists(int id)
         {
-            return _context.Drink.Any(e => e.Id == id);
+            return _context.Company.Any(e => e.Id == id);
         }
     }
 }
