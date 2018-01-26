@@ -4,7 +4,7 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Drink details</h2>
+<h2>Details</h2>
 
 <div>
     <h4>Drink</h4>
@@ -23,15 +23,15 @@
             @Html.DisplayFor(model => model.Amount)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayNameFor(model => model.Company)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Price)
+            @Html.DisplayFor(model => model.Company.Name)
         </dd>
     </dl>
 </div>
 <div>
-    @{if (User.IsInRole("Admin") || User.IsInRole("Mod"))
-        {<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>} }
+    @{if (User.IsInRole("Admin"))
+        {<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>} } |
     <a asp-action="Index">Back to List</a>
 </div>

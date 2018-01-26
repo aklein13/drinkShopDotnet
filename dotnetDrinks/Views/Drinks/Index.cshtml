@@ -6,7 +6,7 @@
 
 <h2>Drinks</h2>
 
-@{if (User.IsInRole("Admin") || User.IsInRole("Mod"))
+@{if (User.IsInRole("Mod"))
     {
         <p>
             <a asp-action="Create">Create New</a>
@@ -24,7 +24,7 @@
                 @Html.DisplayNameFor(model => model.Amount)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayNameFor(model => model.Company)
             </th>
             <th></th>
         </tr>
@@ -32,26 +32,26 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Amount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                @{if (User.IsInRole("Admin") || User.IsInRole("Mod"))
-                    {
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                        </td>
+        <tr>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Company.Name)
+            </td>
+            @{if (User.IsInRole("Admin") || User.IsInRole("Mod"))
+        {
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
 
-                    }
-                }
-            </tr>
+}
+            }
+        </tr>
         }
     </tbody>
 </table>

@@ -21,6 +21,6 @@ namespace dotnetDrinks.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Creation date")]
         public DateTime CreationDate { get; set; }
-        public ICollection<Drinks.Models.Drink> Drinks { get; set; } 
+        public virtual ICollection<Drinks.Models.Drink> Drinks { get; set; } 
     }
 }

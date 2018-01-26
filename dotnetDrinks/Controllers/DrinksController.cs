@@ -23,7 +23,8 @@ namespace dotnetDrinks.Controllers
         // GET: Drinks
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Drink.ToListAsync());
+            var applicationDbContext = _context.Drink.Include(d => d.Company);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Drinks/Details/5
@@ -35,6 +36,7 @@ namespace dotnetDrinks.Controllers
             }
 
             var drink = await _context.Drink
+                .Include(d => d.Company)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (drink == null)
             {
@@ -48,6 +50,7 @@ namespace dotnetDrinks.Controllers
         [Authorize(Roles = "Admin, Mod")]
         public IActionResult Create()
         {
+            ViewData["CompanyID"] = new SelectList(_context.Company, "Id", "Name");
             return View();
         }
 
@@ -57,7 +60,7 @@ namespace dotnetDrinks.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin, Mod")]
-        public async Task<IActionResult> Create([Bind("Id,Name,Amount,Price,CompanyID")] Drink drink)
+        public async Task<IActionResult> Create([Bind("Id,Name,Amount,CompanyID")] Drink drink)
         {
             if (ModelState.IsValid)
             {
@@ -65,6 +68,7 @@ namespace dotnetDrinks.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CompanyID"] = new SelectList(_context.Company, "Id", "Name", drink.CompanyID);
             return View(drink);
         }
 
@@ -82,6 +86,7 @@ namespace dotnetDrinks.Controllers
             {
                 return NotFound();
             }
+            ViewData["CompanyID"] = new SelectList(_context.Company, "Id", "Name", drink.CompanyID);
             return View(drink);
         }
 
@@ -89,9 +94,9 @@ namespace dotnetDrinks.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin, Mod")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Amount,Price,CompanyID")] Drink drink)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Amount,CompanyID")] Drink drink)
         {
             if (id != drink.Id)
             {
@@ -118,6 +123,7 @@ namespace dotnetDrinks.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CompanyID"] = new SelectList(_context.Company, "Id", "Name", drink.CompanyID);
             return View(drink);
         }
 
@@ -131,6 +137,7 @@ namespace dotnetDrinks.Controllers
             }
 
             var drink = await _context.Drink
+                .Include(d => d.Company)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (drink == null)
             {
@@ -142,8 +149,8 @@ namespace dotnetDrinks.Controllers
 
         // POST: Drinks/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin, Mod")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var drink = await _context.Drink.SingleOrDefaultAsync(m => m.Id == id);

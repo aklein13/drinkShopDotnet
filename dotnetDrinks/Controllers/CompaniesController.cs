@@ -45,7 +45,7 @@ namespace dotnetDrinks.Controllers
         }
 
         // GET: Companies/Create
-        [Authorize(Roles = "Admin, Mod")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();

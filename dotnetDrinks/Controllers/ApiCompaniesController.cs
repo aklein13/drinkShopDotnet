@@ -50,7 +50,7 @@ namespace dotnetDrinks.Controllers
 
         // PUT: api/companies/5
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin, Mod")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutCompany([FromRoute] int id, [FromBody] Company company)
         {
             if (!ModelState.IsValid)
@@ -86,7 +86,7 @@ namespace dotnetDrinks.Controllers
 
         // POST: api/companies
         [HttpPost]
-        [Authorize(Roles = "Admin, Mod")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PostCompany([FromBody] Company company)
         {
             if (!ModelState.IsValid)
@@ -102,7 +102,7 @@ namespace dotnetDrinks.Controllers
 
         // DELETE: api/companies/5
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin, Mod")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteCompany([FromRoute] int id)
         {
             if (!ModelState.IsValid)
