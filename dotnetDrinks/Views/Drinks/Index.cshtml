@@ -6,7 +6,7 @@
 
 <h2>Drinks</h2>
 
-@{if (User.IsInRole("Mod"))
+@{if (User.IsInRole("Admin") || User.IsInRole("Mod"))
     {
         <p>
             <a asp-action="Create">Create New</a>
