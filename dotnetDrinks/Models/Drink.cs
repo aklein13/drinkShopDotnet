@@ -12,7 +12,7 @@ namespace Drinks.Models
     public class Drink
     {
         public int Id { get; set; }
-        [StringLength(100, ErrorMessage = "Name can't be longer then 100 chars.")]
+        [StringLength(100, MinimumLength = 3, ErrorMessage = "Name can't be longer then 100 chars or shorder then 3 chars.")]
         [Display(Name = "Drink name")]
         [Required]
         public string Name { get; set; }

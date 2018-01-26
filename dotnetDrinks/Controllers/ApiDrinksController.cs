@@ -84,6 +84,38 @@ namespace dotnetDrinks.Controllers
             return NoContent();
         }
 
+        // POST: api/drinks/5/buy
+        [HttpPost("{id}/buy")]
+        public async Task<IActionResult> BuyDrink([FromRoute] int id)
+        {
+            var drink = await _context.Drink.SingleOrDefaultAsync(m => m.Id == id);
+            if(drink.Amount == 0)
+            {
+                return BadRequest("Drink out of stock.");
+            }
+            drink.Amount--;
+
+            _context.Entry(drink).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!DrinkExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
         // POST: api/drinks
         [HttpPost]
         [Authorize(Roles = "Admin, Mod")]

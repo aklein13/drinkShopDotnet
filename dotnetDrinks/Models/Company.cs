@@ -12,6 +12,7 @@ namespace dotnetDrinks.Models
     {
         public int Id { get; set; }
         [Required]
+        [StringLength(100, MinimumLength = 3, ErrorMessage = "Name can't be longer then 100 chars or shorder then 3 chars.")]
         public string Name { get; set; }
         public string Country { get; set; }
         [Display(Name = "Zip Code")]
