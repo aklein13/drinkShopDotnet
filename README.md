@@ -1,4 +1,3 @@
-# xamarinOffers
+# dotnetDrinks
 
-Xamarin project for UWP labs.
-Offers are provided from externat API.
+Simple MVC project in .Net Core
